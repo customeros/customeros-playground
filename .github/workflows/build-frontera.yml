@@ -45,6 +45,7 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
+          cache-dependency-path: "packages/apps/frontera/package-lock.json"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3.3.0
@@ -66,8 +67,11 @@ jobs:
           push: ${{ github.ref_name == 'otter' || github.event_name == 'release' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: |
+            type=gha,scope=frontera-build
+            type=gha,scope=frontera-build-${{ github.job }}
+          cache-to: |
+            type=gha,mode=max,scope=frontera-build-${{ github.job }}
           build-args: |
             "VITE_MIDDLEWARE_API_URL=${{ secrets.DEV_VITE_MIDDLEWARE_API_URL }}"
             "VITE_CLIENT_APP_URL=${{ secrets.DEV_VITE_CLIENT_APP_URL }}"
@@ -97,6 +101,7 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
+          cache-dependency-path: "packages/apps/frontera/package-lock.json"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3.3.0
@@ -118,8 +123,11 @@ jobs:
           push: ${{ github.ref_name == 'otter' || github.event_name == 'release' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: |
+            type=gha,scope=frontera-build
+            type=gha,scope=frontera-build-${{ github.job }}
+          cache-to: |
+            type=gha,mode=max,scope=frontera-build-${{ github.job }}
           build-args: |
             "VITE_MIDDLEWARE_API_URL=${{ secrets.PROD_VITE_MIDDLEWARE_API_URL }}"
             "VITE_CLIENT_APP_URL=${{ secrets.PROD_VITE_CLIENT_APP_URL }}"
@@ -151,6 +159,7 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
+          cache-dependency-path: "packages/apps/frontera/middleware/package-lock.json"
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3.3.0
@@ -172,5 +181,8 @@ jobs:
           push: ${{ github.ref_name == 'otter' || github.event_name == 'release' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: |
+            type=gha,scope=frontera-build
+            type=gha,scope=frontera-build-${{ github.job }}
+          cache-to: |
+            type=gha,mode=max,scope=frontera-build-${{ github.job }}
