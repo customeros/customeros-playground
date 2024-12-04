@@ -15,8 +15,9 @@ FROM base as deps
 ENV CI=true
 WORKDIR /app
 
-# Copy only package files for better layer caching
-COPY package.json package-lock.json ./
+# Copy package files for dependency installation
+COPY package*.json ./
+COPY .npmrc ./
 
 # Install dependencies with specific optimizations
 RUN --mount=type=cache,target=/root/.npm \
@@ -25,8 +26,14 @@ RUN --mount=type=cache,target=/root/.npm \
 FROM deps as builder
 WORKDIR /app
 
+# Copy build configuration files first
+COPY vite.config.ts tsconfig.json tsconfig.node.json ./
+COPY tailwind.config.ts postcss.config.js ./
+COPY index.html ./
+
 # Copy source files
-COPY . .
+COPY src/ ./src/
+COPY public/ ./public/
 
 # Create production env file
 RUN touch .env.production && printenv > .env.production
