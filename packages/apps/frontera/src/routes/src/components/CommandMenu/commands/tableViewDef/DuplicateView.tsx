@@ -107,6 +107,22 @@ export const DuplicateView = observer(() => {
           >
             Save view
           </Button>
+          <Button
+            size='sm'
+            variant='outline'
+            className='w-full'
+            colorScheme='primary'
+            ref={confirmButtonRef}
+            onClick={handleConfirm}
+            dataTest='org-actions-confirm-archive'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleConfirm();
+              }
+            }}
+          >
+            Save view
+          </Button>
         </div>
       </article>
     </Command>
