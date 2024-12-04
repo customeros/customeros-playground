@@ -1,5 +1,7 @@
+# syntax=docker/dockerfile:1.4
 FROM node:18-alpine@sha256:4837c2ac8998cf172f5892fb45f229c328e4824c43c8506f8ba9c7996d702430 as base
 
+# Set common build arguments
 ARG VITE_MIDDLEWARE_API_URL
 ARG VITE_CLIENT_APP_URL
 ARG VITE_REALTIME_WS_PATH
@@ -9,26 +11,51 @@ ARG VITE_NOTIFICATION_PROD_APP_IDENTIFIER
 ARG VITE_NOTIFICATION_URL
 ARG VITE_STRIPE_PUBLIC_KEY
 
-FROM base as builder
+FROM base as deps
 ENV CI=true
-
 WORKDIR /app
 
-COPY package.json .
-COPY package-lock.json .
+# Copy only package files for better layer caching
+COPY package.json package-lock.json ./
 
-RUN npm ci --ignore-scripts
+# Install dependencies with specific optimizations
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci --ignore-scripts --prefer-offline --no-audit
 
+FROM deps as builder
+WORKDIR /app
+
+# Copy source files
 COPY . .
 
-RUN touch .env.production
-RUN printenv > .env.production
+# Create production env file
+RUN touch .env.production && printenv > .env.production
 
-RUN npm run build
+# Build with cache mount for node_modules
+RUN --mount=type=cache,target=/root/.npm \
+    --mount=type=cache,target=/app/node_modules,from=deps,source=/app/node_modules \
+    npm run build
 
-FROM nginx:latest@sha256:32e76d4f34f80e479964a0fbd4c5b4f6967b5322c8d004e9cf0cb81c93510766 as prod
+# Production stage
+FROM nginx:alpine@sha256:a05dc59834599ec25e88c54ea63445937cf524e4c1908b24519443a792e01762 as prod
 
+# Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy built assets from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Use non-root user for security
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /etc/nginx/conf.d && \
+    touch /var/run/nginx.pid && \
+    chown -R nginx:nginx /var/run/nginx.pid
+
+USER nginx
+
+# Expose port and start nginx
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
