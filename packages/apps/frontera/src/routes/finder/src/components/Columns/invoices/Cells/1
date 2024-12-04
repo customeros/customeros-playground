@@ -1,0 +1,19 @@
+[ColumnViewType.InvoicesIssueDate]: columnHelper.accessor((row) => row, {
+    id: ColumnViewType.InvoicesIssueDate,
+    size: 150,
+    minSize: 150,
+    maxSize: 300,
+    enableResizing: true,
+    enableColumnFilter: false,
+    enableSorting: true,
+    header: (props) => (
+      <THead
+        filterWidth={250}
+        title='Issue Date'
+        id={ColumnViewType.InvoicesIssueDate}
+        {...getTHeadProps(props)}
+      />
+    ),
+    cell: (props) => <DateCell value={props.getValue()?.value?.issued} />,
+    skeleton: () => <Skeleton className='w-[200px] h-[18px]' />,
+  }),

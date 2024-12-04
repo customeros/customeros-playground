@@ -1,0 +1,347 @@
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/customer-os-analytics-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/customer-os-analytics-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/customer-os-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/customer-os-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/customer-os-webhooks"
+    schedule:
+      interval: "daily"
+      time: "04:30"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/customer-os-webhooks"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/customer-os-common-module"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "module/customer-os-common-module"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/customer-os-neo4j-repository"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "module/customer-os-neo4j-repository"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/customer-os-postgres-repository"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "module/customer-os-postgres-repository"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/events-processing-proto"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "module/events-processing-proto"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/events-processing-platform"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/events-processing-platform"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/events-subscribers"
+    schedule:
+      interval: "daily"
+      time: "04:15"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/events-subscribers"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/events-processing-platform-subscribers"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/events-processing-platform-subscribers"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/runner/sync-tracked-data"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/sync-tracked-data"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/runner/sync-customer-os-data"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/sync-customer-os-data"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/runner/customer-os-dedup"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/customer-os-dedup"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/runner/sync-gmail"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/sync-gmail"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/runner/sync-slack"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/sync-slack"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/runner/integrity-checker"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/integrity-checker"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/file-store-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/file-store-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/settings-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/settings-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/validation-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/validation-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/email-tracking-api"
+    schedule:
+      interval: "daily"
+      time: "05:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/email-tracking-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/enrichment-api"
+    schedule:
+      interval: "daily"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/enrichment-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/user-admin-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/user-admin-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/anthropic-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/anthropic-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
+
+  - package-ecosystem: "gomod"
+    directory: "/packages/server/openai-api"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "gomod"
+      - "dependencies"
+      - "app/openai-api"
+    pull-request-branch-name:
+      separator: "-"
+    rebase-strategy: "auto"
