@@ -37,7 +37,7 @@ RUN --mount=type=cache,target=/root/.npm \
     npm run build
 
 # Production stage
-FROM nginx:alpine@sha256:a05dc59834599ec25e88c54ea63445937cf524e4c1908b24519443a792e01762 as prod
+FROM nginx:alpine as prod
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
