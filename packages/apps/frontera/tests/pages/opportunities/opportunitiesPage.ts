@@ -15,8 +15,6 @@ export class OpportunitiesPage {
   private opportunitiesActionsArchive = 'button[data-test="actions-archive"]';
   private orgActionsConfirmArchive =
     'button[data-test="org-actions-confirm-archive"]';
-  private orgActionsConfirmArchiveToBeDeleted =
-    'button[data-test="org-actions-confirm-archive-to-be-deleted"]';
 
   async goToOpportunities() {
     await clickLocatorsThatAreVisible(this.page, this.sideNavItemOpportunities);
