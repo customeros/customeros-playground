@@ -78,7 +78,13 @@ do
 
             # Capture actual and expected values when in an error block
             if [ $in_error_block -eq 1 ]; then
-                if [[ $line == *"actual: "* ]]; then
+                # Check for status code comparisons
+                if [[ $line == *"assert status-code equals"* ]]; then
+                    expected_value="Status code: ${line#*equals }"
+                elif [[ $line == *"actual status-code: "* ]]; then
+                    actual_value="Status code: ${line#*actual status-code: }"
+                # Check for regular value comparisons
+                elif [[ $line == *"actual: "* ]]; then
                     actual_value="${line#*actual: }"
                 elif [[ $line == *"expected: "* ]]; then
                     expected_value="${line#*expected: }"
