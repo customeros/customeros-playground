@@ -78,11 +78,14 @@ do
 
             # Capture actual and expected values when in an error block
             if [ $in_error_block -eq 1 ]; then
+                # Debug: Print the line being processed
+                # echo "Processing line: $line"
+
                 # Check for status code comparisons
-                if [[ $line == *"assert status-code equals"* ]]; then
-                    expected_value="Status code: ${line#*equals }"
-                elif [[ $line == *"actual status-code: "* ]]; then
-                    actual_value="Status code: ${line#*actual status-code: }"
+                if [[ $line =~ "actual status code is" ]]; then
+                    actual_value="Status code: ${line#*actual status code is }"
+                elif [[ $line =~ "[Assertion] status code must be" ]]; then
+                    expected_value="Status code: ${line#*must be }"
                 # Check for regular value comparisons
                 elif [[ $line == *"actual: "* ]]; then
                     actual_value="${line#*actual: }"
