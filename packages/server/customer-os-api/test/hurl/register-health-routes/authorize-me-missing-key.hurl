@@ -2,7 +2,7 @@
 GET {{cos_url}}/me
 X-CUSTOMER-OS-API-KEY:
 
-HTTP 401
+HTTP 402
 [Asserts]
 header "Content-Type" contains "application/json"
 jsonpath "$.errors[0].message" == "Api key is required"
