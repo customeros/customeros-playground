@@ -78,14 +78,11 @@ do
 
             # Capture actual and expected values when in an error block
             if [ $in_error_block -eq 1 ]; then
-                # Debug: Print the line being processed
-                # echo "Processing line: $line"
-
-                # Check for status code comparisons
-                if [[ $line =~ "actual status code is" ]]; then
-                    actual_value="Status code: ${line#*actual status code is }"
-                elif [[ $line =~ "[Assertion] status code must be" ]]; then
-                    expected_value="Status code: ${line#*must be }"
+                # Check for status code error with carets (^^^)
+                if [[ $line =~ "^^^ actual value is" ]]; then
+                    actual_value="$(echo "$line" | sed -n 's/.*actual value is <\([^>]*\)>.*/\1/p')"
+                elif [[ $line =~ "HTTP "* ]]; then
+                    expected_value="$(echo "$line" | grep -o '[0-9]\{3\}')"
                 # Check for regular value comparisons
                 elif [[ $line == *"actual: "* ]]; then
                     actual_value="${line#*actual: }"
